@@ -1,0 +1,34 @@
+[
+    {
+        "image": "https://i.ibb.co/58D84Tt/fa4d83e7f-1176.png",
+        "title": "Ami",
+        "location": "Dhaka",
+        "resale_price": "100",
+        "original_price": "180",
+        "years_of_use": "2"
+    },
+    {
+        "image": "https://i.ibb.co/8sYjyTm/Amar-chelebela-by-Humayun-Ahmed.jpg",
+        "title": "Aamar Chhelebela",
+        "location": "Dhaka",
+        "resale_price": "100",
+        "original_price": "180",
+        "years_of_use": "2"
+    },
+    {
+        "image": "https://i.ibb.co/Qp298JY/1800938.jpg",
+        "title": "Brishti O Meghomala",
+        "location": "Dhaka",
+        "resale_price": "100",
+        "original_price": "180",
+        "years_of_use": "2"
+    },
+    {
+        "image": "https://i.ibb.co/sFTtLSk/1b3707c61-62834.jpg",
+        "title": "Deyal",
+        "location": "Dhaka",
+        "resale_price": "100",
+        "original_price": "180",
+        "years_of_use": "2"
+    }
+]
