@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 const Login = () => {
     return (
         <Fragment>
-            <div className="min-h-screen hero bg-neutral text-neutral-content">
+            <div className="hero flex h-screen justify-center items-center bg-black">
                 <div className="hero-content flex-col lg:flex-row-reverse">
-                    <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+                    <div className="card flex-shrink-0 shadow-2xl bg-white">
                         <h1 className="text-center text-black text-3xl font-bold mt-3">Login</h1>
                         <div className="card-body">
                             <div className="form-control">
