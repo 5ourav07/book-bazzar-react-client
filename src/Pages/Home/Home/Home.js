@@ -1,6 +1,5 @@
 import React from 'react';
 import Categories from '../Categories/Categories';
-import Reviews from '../Reviews/Reviews';
 import './Home.css';
 
 const Home = () => {
@@ -16,12 +15,6 @@ const Home = () => {
             <div className="text-center text-white py-5">
                 <h1 className='text-2xl lg:text-4xl font-bold'>Categories</h1>
                 <Categories></Categories>
-            </div>
-
-            {/* Reviews */}
-            <div className="text-center text-white py-5">
-                <h1 className='text-2xl lg:text-4xl font-bold'>Reviews</h1>
-                <Reviews></Reviews>
             </div>
         </div>
     );
