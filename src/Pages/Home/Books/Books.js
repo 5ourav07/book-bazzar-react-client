@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import BooksCard from './BooksCard';
+import OrderModal from './OrderModal';
 
 const Books = () => {
     const [books, setBooks] = useState([]);
+    const [bookDetails, setBookDetails] = useState(null);
     const { id } = useParams();
 
     useEffect(() => {
@@ -19,9 +21,14 @@ const Books = () => {
                     books.map(book => <BooksCard
                         key={book._id}
                         book={book}
+                        setBookDetails={setBookDetails}
                     ></BooksCard>)
                 }
             </div>
+            {
+                bookDetails &&
+                <OrderModal bookDetails={bookDetails}></OrderModal>
+            }
         </div>
     );
 };
