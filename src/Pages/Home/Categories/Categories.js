@@ -5,7 +5,7 @@ import CategoriesCard from './CategoriesCard';
 const Categories = () => {
     const [categories, setCategories] = useState([]);
 
-    Axios.get('categoriesData.json')
+    Axios.get('http://localhost:5000/categories')
         .then(
             (res) => {
                 setCategories(res.data);
