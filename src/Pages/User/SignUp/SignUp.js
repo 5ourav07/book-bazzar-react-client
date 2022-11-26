@@ -37,13 +37,29 @@ const SignUp = () => {
                 }
                 updateUserProfile(profile)
                     .then(() => {
-                        navigate(from, { replace: true });
+                        saveUserDB(data.name, data.email, data.role);
                     })
                     .catch(error => console.log(error));
             })
             .catch(error => {
                 setSignUpError(error.message);
             });
+    }
+
+    const saveUserDB = (name, email, role) => {
+        const user = { name, email, role };
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                navigate(from, { replace: true });
+            })
     }
 
     return (
@@ -81,20 +97,20 @@ const SignUp = () => {
                             {errors.password && <p className='text-red-600'>{errors.password?.message}</p>}
                         </div>
 
-                        {/* <div className='border border-white rounded-lg my-3 px-3'>
+                        <div className='border border-white rounded-lg my-3 px-3'>
                             <div className="form-control">
                                 <label className="label cursor-pointer">
                                     <span className="label-text text-white">Buyer</span>
-                                    <input {...register("Role", { required: true })} className="radio" type="radio" value="buyer" checked />
+                                    <input name='role' {...register("role", { required: true })} className="radio" type="radio" value="buyer" checked />
                                 </label>
                             </div>
                             <div className="form-control">
                                 <label className="label cursor-pointer">
                                     <span className="label-text text-white">Seller</span>
-                                    <input {...register("Role", { required: true })} className="radio" type="radio" value="seller" />
+                                    <input name='role' {...register("role", { required: true })} className="radio" type="radio" value="seller" />
                                 </label>
                             </div>
-                        </div> */}
+                        </div>
 
                         <input className='btn btn-outline w-full my-3 text-white' value="Sign Up" type="submit" />
                         <div>
