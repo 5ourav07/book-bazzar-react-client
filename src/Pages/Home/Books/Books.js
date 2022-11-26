@@ -1,18 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Loading from '../../Shared/Loading/Loading';
 import BooksCard from './BooksCard';
 import OrderModal from './OrderModal';
 
 const Books = () => {
-    const [books, setBooks] = useState([]);
     const [bookDetails, setBookDetails] = useState(null);
     const { id } = useParams();
 
-    useEffect(() => {
-        fetch(`http://localhost:5000/books?category_id=${id}`)
-            .then(res => res.json())
-            .then(data => setBooks(data))
-    }, [id])
+    const { data: books = [], refetch, isLoading } = useQuery({
+        queryKey: ['books', id],
+        queryFn: async () => {
+            const res = await fetch(`http://localhost:5000/books?category_id=${id}`)
+            const data = await res.json()
+            return data
+        }
+    });
+
+    // if (isLoading) {
+    //     return <Loading></Loading>
+    // }
 
     return (
         <div>
@@ -27,7 +35,11 @@ const Books = () => {
             </div>
             {
                 bookDetails &&
-                <OrderModal bookDetails={bookDetails}></OrderModal>
+                <OrderModal
+                    bookDetails={bookDetails}
+                    setBookDetails={setBookDetails}
+                    refetch={refetch}
+                ></OrderModal>
             }
         </div>
     );
