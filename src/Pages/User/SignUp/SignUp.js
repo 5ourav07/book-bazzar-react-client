@@ -1,14 +1,48 @@
-import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Fragment, useContext } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { AuthContext } from '../../../Contexts/AuthProvider';
+import toast from 'react-hot-toast';
+import { GoogleAuthProvider } from 'firebase/auth';
 
-const Login = () => {
+const SignUp = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const [loginError, setLoginError] = useState('');
+    const { signup, updateUserProfile, googleSignup } = useContext(AuthContext);
+    const googleProvider = new GoogleAuthProvider();
+    const [signUpError, setSignUpError] = useState('');
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
+
+    const handleGoogleSignIn = () => {
+        googleSignup(googleProvider)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                navigate(from, { replace: true });
+            })
+            .catch(error => console.error(error))
+    }
 
     const handleSignUp = (data) => {
-        console.log(data);
+        setSignUpError('');
+        signup(data.email, data.password)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                toast('User Created Successfully')
+                navigate(from, { replace: true });
+                const profile = {
+                    displayName: data.name
+                }
+                updateUserProfile(profile)
+                    .then(() => { })
+                    .catch(error => console.log(error));
+            })
+            .catch(error => {
+                setSignUpError(error.message);
+            });
     }
 
     return (
@@ -46,7 +80,7 @@ const Login = () => {
                             {errors.password && <p className='text-red-600'>{errors.password?.message}</p>}
                         </div>
 
-                        <div className='border border-white rounded-lg my-3 px-3'>
+                        {/* <div className='border border-white rounded-lg my-3 px-3'>
                             <div className="form-control">
                                 <label className="label cursor-pointer">
                                     <span className="label-text text-white">Buyer</span>
@@ -59,11 +93,11 @@ const Login = () => {
                                     <input {...register("Role", { required: true })} className="radio" type="radio" value="seller" />
                                 </label>
                             </div>
-                        </div>
+                        </div> */}
 
                         <input className='btn btn-outline w-full my-3 text-white' value="Sign Up" type="submit" />
                         <div>
-                            {loginError && <p className='text-red-600'>{loginError}</p>}
+                            {signUpError && <p className='text-red-600'>{signUpError}</p>}
                         </div>
                     </form>
 
@@ -73,11 +107,11 @@ const Login = () => {
 
                     <div className="divider text-white">OR</div>
 
-                    <button className='btn btn-outline w-full text-white'>CONTINUE WITH GOOGLE</button>
+                    <button onClick={handleGoogleSignIn} className='btn btn-outline w-full text-white'>CONTINUE WITH GOOGLE</button>
                 </div>
             </div>
         </Fragment>
     );
 };
 
-export default Login;
+export default SignUp;

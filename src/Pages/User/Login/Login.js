@@ -1,14 +1,42 @@
-import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Fragment, useContext } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { AuthContext } from '../../../Contexts/AuthProvider';
+import toast from 'react-hot-toast';
+import { GoogleAuthProvider } from 'firebase/auth';
 
 const Login = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
+    const { login, googleSignup } = useContext(AuthContext);
+    const googleProvider = new GoogleAuthProvider();
     const [loginError, setLoginError] = useState('');
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
 
-    const handleLogin = data => {
-        console.log(data);
+    const handleGoogleSignIn = () => {
+        googleSignup(googleProvider)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                navigate(from, { replace: true });
+            })
+            .catch(error => console.error(error))
+    }
+
+    const handleLogin = (data) => {
+        setLoginError('');
+        login(data.email, data.password)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                toast('Login Successful')
+                navigate(from, { replace: true });
+            })
+            .catch(error => {
+                setLoginError(error.message);
+            });
     }
 
     return (
@@ -49,7 +77,7 @@ const Login = () => {
 
                     <div className="divider text-white">OR</div>
 
-                    <button className='btn btn-outline w-full text-white'>CONTINUE WITH GOOGLE</button>
+                    <button onClick={handleGoogleSignIn} className='btn btn-outline w-full text-white'>CONTINUE WITH GOOGLE</button>
                 </div>
             </div>
         </Fragment>

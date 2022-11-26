@@ -1,11 +1,35 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../../Assets/book-logo.png';
+import { AuthContext } from '../../../Contexts/AuthProvider';
 
 const Navbar = () => {
+    const { user, logOut } = useContext(AuthContext);
+
+    const handleLogOut = () => {
+        logOut()
+            .then(() => { })
+            .catch(error => console.error(error))
+    }
+
     const menuItems = <Fragment>
         <li><Link to='/'>Home</Link></li>
         <li><Link to='blogs'>Blogs</Link></li>
+        <>
+            {
+                user?.uid
+                    ?
+                    <>
+                        <li><Link to='/dashboard'>Dashboard</Link></li>
+                        <span className='flex items-center text-slate-400 font-bold'>{user?.displayName}</span>
+                        <li><Link to='/' onClick={handleLogOut} className="btn btn-ghost text-red-600">Log Out</Link></li>
+                    </>
+                    :
+                    <>
+                        <li><Link to='/login' className="border border-white rounded-xl btn btn-ghost">Login</Link></li>
+                    </>
+            }
+        </>
     </Fragment>
 
     return (
@@ -25,13 +49,10 @@ const Navbar = () => {
                         Book Bazzar
                     </Link>
                 </div>
-                <div className="hidden lg:flex">
+                <div className="navbar-end hidden lg:flex">
                     <ul className="menu menu-horizontal p-0">
                         {menuItems}
                     </ul>
-                </div>
-                <div className="navbar-end">
-                    <Link to='/login' className="btn btn-ghost">Login</Link>
                 </div>
             </div>
         </div>
