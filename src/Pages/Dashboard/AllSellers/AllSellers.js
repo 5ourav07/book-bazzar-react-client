@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 
-const AllUsers = () => {
+const AllSellers = () => {
     const { data: users = [] } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/buyer-users');
+            const res = await fetch('http://localhost:5000/seller-users');
             const data = await res.json();
             return data;
         }
@@ -13,7 +13,7 @@ const AllUsers = () => {
 
     return (
         <div>
-            <h1 className='text-3xl text-center my-5'>All Users</h1>
+            <h1 className='text-3xl text-center my-5'>All Sellers</h1>
             <div>
                 <div className="overflow-x-auto">
                     <table className="table w-4/5 mx-auto my-5">
@@ -45,4 +45,4 @@ const AllUsers = () => {
     );
 };
 
-export default AllUsers;
+export default AllSellers;
