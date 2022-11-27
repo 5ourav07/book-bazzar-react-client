@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Loading from '../../Shared/Loading/Loading';
 import BooksCard from './BooksCard';
 import OrderModal from './OrderModal';
 
@@ -9,7 +8,7 @@ const Books = () => {
     const [bookDetails, setBookDetails] = useState(null);
     const { id } = useParams();
 
-    const { data: books = [], refetch, isLoading } = useQuery({
+    const { data: books = [], refetch } = useQuery({
         queryKey: ['books', id],
         queryFn: async () => {
             const res = await fetch(`http://localhost:5000/books?category_id=${id}`)
@@ -17,10 +16,6 @@ const Books = () => {
             return data
         }
     });
-
-    // if (isLoading) {
-    //     return <Loading></Loading>
-    // }
 
     return (
         <div>
