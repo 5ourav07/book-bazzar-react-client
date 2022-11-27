@@ -5,15 +5,22 @@ import { useForm } from "react-hook-form";
 import { AuthContext } from '../../../Contexts/AuthProvider';
 import toast from 'react-hot-toast';
 import { GoogleAuthProvider } from 'firebase/auth';
+import useToken from '../../../Hooks/useToken';
 
 const SignUp = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const { signup, updateUserProfile, googleSignup } = useContext(AuthContext);
     const googleProvider = new GoogleAuthProvider();
     const [signUpError, setSignUpError] = useState('');
+    const [signupUserEmail, setSignupUserEmail] = useState('')
+    const [token] = useToken(signupUserEmail);
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
+
+    if (token) {
+        navigate(from, { replace: true });
+    }
 
     const handleGoogleSignIn = () => {
         googleSignup(googleProvider)
@@ -49,7 +56,7 @@ const SignUp = () => {
     const saveUserDB = (name, email, role) => {
         const user = { name, email, role };
         fetch('http://localhost:5000/users', {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'content-type': 'application/json'
             },
@@ -57,8 +64,8 @@ const SignUp = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
-                navigate(from, { replace: true });
+                setSignupUserEmail(email);
+
             })
     }
 
