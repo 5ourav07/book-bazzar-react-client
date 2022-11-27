@@ -12,9 +12,21 @@ const Home = () => {
             </div>
 
             {/* Categories */}
-            <div className="text-center text-white py-5">
+            <div className="text-center text-white py-20">
                 <h1 className='text-2xl lg:text-4xl font-bold'>Categories</h1>
                 <Categories></Categories>
+            </div>
+
+            {/* Contact Us */}
+            <div className="text-center text-white py-10">
+                <h1 className='text-2xl lg:text-4xl font-bold'>Contact Us</h1>
+                <div className='flex justify-center py-5'>
+                    <div className='text-black mx-5 w-full lg:w-1/2'>
+                        <textarea className="textarea textarea-bordered w-full" placeholder="Message"></textarea>
+                        <input type="text" placeholder="username@site.com" className="input input-bordered w-full" />
+                        <button className="btn btn-square rounded-lg my-1 w-full">Send</button>
+                    </div>
+                </div>
             </div>
         </div>
     );

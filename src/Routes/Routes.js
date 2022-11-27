@@ -24,7 +24,7 @@ export const routes = createBrowserRouter([
             },
             {
                 path: '/categories/:id',
-                element: <Books></Books>
+                element: <PrivateRoute><Books></Books></PrivateRoute>
             }
         ]
     },
