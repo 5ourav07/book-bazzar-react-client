@@ -1,5 +1,6 @@
 import React, { Fragment, useContext } from 'react';
 import toast from 'react-hot-toast';
+import { Navigate } from 'react-router-dom';
 import { AuthContext } from '../../../Contexts/AuthProvider';
 
 const AddBook = () => {
@@ -41,6 +42,7 @@ const AddBook = () => {
             .then(data => {
                 if (data.acknowledged) {
                     toast.success('Created confirmed');
+                    Navigate('/')
                 }
                 else {
                     toast.error(data.message);

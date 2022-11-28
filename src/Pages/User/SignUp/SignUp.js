@@ -55,6 +55,7 @@ const SignUp = () => {
 
     const saveUserDB = (name, email, role) => {
         const user = { name, email, role };
+
         fetch('http://localhost:5000/users', {
             method: 'PUT',
             headers: {

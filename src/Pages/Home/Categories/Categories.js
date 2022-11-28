@@ -1,17 +1,19 @@
-import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from "axios";
 import CategoriesCard from './CategoriesCard';
 
 const Categories = () => {
+    const [categories, setCategories] = useState(null);
 
-    const { data: categories = [] } = useQuery({
-        queryKey: ['categories'],
-        queryFn: async () => {
-            const res = await fetch('http://localhost:5000/categories')
-            const data = await res.json()
-            return data
-        }
-    });
+    const url = 'http://localhost:5000/categories';
+
+    useEffect(() => {
+        axios.get(url).then((response) => {
+            setCategories(response.data);
+        });
+    }, []);
+
+    if (!categories) return null;
 
     return (
         <div>

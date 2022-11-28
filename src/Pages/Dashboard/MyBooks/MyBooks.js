@@ -1,13 +1,21 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import toast from 'react-hot-toast';
 import { AuthContext } from '../../../Contexts/AuthProvider';
+import ConfirmationModal from '../../Shared/ConfirmationModal/ConfirmationModal';
+import Loading from '../../Shared/Loading/Loading';
 
 const MyBooks = () => {
+    const [deleteBook, setDeleteBook] = useState(null);
     const { user } = useContext(AuthContext);
+
+    const closeModal = () => {
+        setDeleteBook(null);
+    }
 
     const url = `http://localhost:5000/books/mybooks?name=${user?.displayName}`;
 
-    const { data: books = [] } = useQuery({
+    const { data: books = [], isLoading, refetch } = useQuery({
         queryKey: ['books', user?.displayName],
         queryFn: async () => {
             const res = await fetch(url);
@@ -15,6 +23,26 @@ const MyBooks = () => {
             return data;
         }
     })
+
+    const handleDeleteBook = book => {
+        fetch(`http://localhost:5000/books/${book._id}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    refetch();
+                    toast.success(`${book.name} deleted successfully`)
+                }
+            })
+    }
+
+    if (isLoading) {
+        return <Loading></Loading>
+    }
 
     return (
         <div>
@@ -57,7 +85,7 @@ const MyBooks = () => {
                                         <td>{book.seller_name}</td>
                                         <td>
                                             <button className='btn btn-xs bg-blue-400 mr-3'>Advertise</button>
-                                            <button className='btn btn-xs bg-red-600'>Delete</button>
+                                            <label onClick={() => setDeleteBook(book)} htmlFor="confirmation-modal" className='btn btn-xs bg-red-600'>Delete</label>
                                         </td>
                                     </tr>
                                 )
@@ -65,6 +93,17 @@ const MyBooks = () => {
                         </tbody>
                     </table>
                 </div>
+                {
+                    deleteBook && <ConfirmationModal
+                        title={`Are you sure you want to delete?`}
+                        message={`If you delete ${deleteBook.title}. It cannot be undone.`}
+                        successAction={handleDeleteBook}
+                        successButtonName="Delete"
+                        modalData={deleteBook}
+                        closeModal={closeModal}
+                    >
+                    </ConfirmationModal>
+                }
             </div>
         </div>
     );
