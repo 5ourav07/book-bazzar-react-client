@@ -6,6 +6,7 @@ import Blogs from "../Pages/Blogs/Blogs";
 import AllSellers from "../Pages/Dashboard/AllSellers/AllSellers";
 import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 import AddBook from "../Pages/Dashboard/MyBooks/AddBook";
+import MyBooks from "../Pages/Dashboard/MyBooks/MyBooks";
 import MyOrders from "../Pages/Dashboard/MyOrders/MyOrders";
 import Dashboard from "../Pages/Dashboard/Welcome/Dashboard";
 import Books from "../Pages/Home/Books/Books";
@@ -61,6 +62,10 @@ export const routes = createBrowserRouter([
             {
                 path: '/dashboard/addbook',
                 element: <SellerRoute><AddBook></AddBook></SellerRoute>
+            },
+            {
+                path: '/dashboard/mybooks',
+                element: <SellerRoute><MyBooks></MyBooks></SellerRoute>
             }
         ]
     },
