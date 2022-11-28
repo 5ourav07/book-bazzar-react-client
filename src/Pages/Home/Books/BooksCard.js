@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const BooksCard = ({ book, setBookDetails }) => {
-    const { image, title, condition, resale_price, original_price, years_of_use, seller_name, location } = book;
+    const { _id, image, title, condition, resale_price, original_price, years_of_use, seller_name, location } = book;
 
     return (
         <div>
@@ -17,7 +18,7 @@ const BooksCard = ({ book, setBookDetails }) => {
                     <p>Pickup Location: {location}</p>
                     <div className="card-actions justify-end">
                         <label onClick={() => setBookDetails(book)} htmlFor="order-modal" className="btn btn-primary">Order Now</label>
-                        <button className="btn btn-xs">Report</button>
+                        <Link to={`/categories/report/${_id}`}><button className="btn btn-xs">Report</button></Link>
                     </div>
                 </div>
             </div>

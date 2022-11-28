@@ -9,8 +9,10 @@ import AddBook from "../Pages/Dashboard/MyBooks/AddBook";
 import MyBooks from "../Pages/Dashboard/MyBooks/MyBooks";
 import MyOrders from "../Pages/Dashboard/MyOrders/MyOrders";
 import Payment from "../Pages/Dashboard/MyOrders/Payment";
+import ReportedItems from "../Pages/Dashboard/ReportedItems/ReportedItems";
 import Dashboard from "../Pages/Dashboard/Welcome/Dashboard";
 import Books from "../Pages/Home/Books/Books";
+import Report from "../Pages/Home/Books/Report";
 import Home from "../Pages/Home/Home/Home";
 import NotFound from "../Pages/NotFound/NotFound";
 import DisplayError from "../Pages/Shared/DisplayError/DisplayError";
@@ -36,6 +38,11 @@ export const routes = createBrowserRouter([
                 element: <PrivateRoute><Books></Books></PrivateRoute>
             },
             {
+                path: '/categories/report/:id',
+                element: <PrivateRoute><Report></Report></PrivateRoute>,
+                loader: ({ params }) => fetch(`http://localhost:5000/books/${params.id}`)
+            },
+            {
                 path: '/blogs',
                 element: <Blogs></Blogs>
             }
@@ -58,6 +65,10 @@ export const routes = createBrowserRouter([
             {
                 path: '/dashboard/allusers',
                 element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
+            },
+            {
+                path: '/dashboard/report',
+                element: <AdminRoute><ReportedItems></ReportedItems></AdminRoute>
             },
             {
                 path: '/dashboard/myorders',
