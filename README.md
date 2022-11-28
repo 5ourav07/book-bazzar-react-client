@@ -1,5 +1,5 @@
 # Assignment 12: Book Bazzar Client
-## Link: [Book Bazzar]()
+## Link: [Book Bazzar](https://book-bazzar-app.web.app/)
 
 adminEmail: admin@admin.com
 adminPassword: 123456
