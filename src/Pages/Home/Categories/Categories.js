@@ -5,7 +5,7 @@ import CategoriesCard from './CategoriesCard';
 const Categories = () => {
     const [categories, setCategories] = useState(null);
 
-    const url = 'http://localhost:5000/categories';
+    const url = 'https://book-bazzar-server.vercel.app/categories';
 
     useEffect(() => {
         axios.get(url).then((response) => {

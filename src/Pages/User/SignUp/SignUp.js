@@ -56,7 +56,7 @@ const SignUp = () => {
     const saveUserDB = (name, email, role) => {
         const user = { name, email, role };
 
-        fetch('http://localhost:5000/users', {
+        fetch('https://book-bazzar-server.vercel.app/users', {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'

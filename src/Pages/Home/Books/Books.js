@@ -11,7 +11,7 @@ const Books = () => {
     const { data: books = [], refetch } = useQuery({
         queryKey: ['books', id],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/books?category_id=${id}`)
+            const res = await fetch(`https://book-bazzar-server.vercel.app/books?category_id=${id}`)
             const data = await res.json()
             return data
         }

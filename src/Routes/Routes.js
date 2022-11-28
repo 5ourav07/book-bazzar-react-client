@@ -40,7 +40,7 @@ export const routes = createBrowserRouter([
             {
                 path: '/categories/report/:id',
                 element: <PrivateRoute><Report></Report></PrivateRoute>,
-                loader: ({ params }) => fetch(`http://localhost:5000/books/${params.id}`)
+                loader: ({ params }) => fetch(`https://book-bazzar-server.vercel.app/books/${params.id}`)
             },
             {
                 path: '/blogs',
@@ -77,7 +77,7 @@ export const routes = createBrowserRouter([
             {
                 path: '/dashboard/myorders/payment/:id',
                 element: <BuyerRoute><Payment></Payment></BuyerRoute>,
-                loader: ({ params }) => fetch(`http://localhost:5000/orders/${params.id}`)
+                loader: ({ params }) => fetch(`https://book-bazzar-server.vercel.app/orders/${params.id}`)
             },
             {
                 path: '/dashboard/addbook',

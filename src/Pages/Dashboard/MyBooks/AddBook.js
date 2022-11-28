@@ -31,7 +31,7 @@ const AddBook = () => {
             seller_name: sellerName
         }
 
-        fetch('http://localhost:5000/books', {
+        fetch('https://book-bazzar-server.vercel.app/books', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

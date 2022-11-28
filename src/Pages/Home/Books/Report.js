@@ -26,7 +26,7 @@ const Report = () => {
             user_name: userName
         }
 
-        fetch('http://localhost:5000/books/report', {
+        fetch('https://book-bazzar-server.vercel.app/books/report', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

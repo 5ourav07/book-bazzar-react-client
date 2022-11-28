@@ -6,14 +6,14 @@ const AllSellers = () => {
     const { data: users = [], refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/seller-users');
+            const res = await fetch('https://book-bazzar-server.vercel.app/seller-users');
             const data = await res.json();
             return data;
         }
     });
 
     const handleMakeAdmin = id => {
-        fetch(`http://localhost:5000/users/seller/${id}`, {
+        fetch(`https://book-bazzar-server.vercel.app/users/seller/${id}`, {
             method: 'PUT',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`

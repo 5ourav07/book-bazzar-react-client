@@ -13,7 +13,7 @@ const MyBooks = () => {
         setDeleteBook(null);
     }
 
-    const url = `http://localhost:5000/books/mybooks?name=${user?.displayName}`;
+    const url = `https://book-bazzar-server.vercel.app/books/mybooks?name=${user?.displayName}`;
 
     const { data: books = [], isLoading, refetch } = useQuery({
         queryKey: ['books', user?.displayName],
@@ -25,7 +25,7 @@ const MyBooks = () => {
     })
 
     const handleDeleteBook = book => {
-        fetch(`http://localhost:5000/books/${book._id}`, {
+        fetch(`https://book-bazzar-server.vercel.app/books/${book._id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`

@@ -25,7 +25,7 @@ const OrderModal = ({ bookDetails, setBookDetails, refetch }) => {
             location
         }
 
-        fetch('http://localhost:5000/orders', {
+        fetch('https://book-bazzar-server.vercel.app/orders', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
