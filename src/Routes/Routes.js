@@ -7,12 +7,16 @@ import AllSellers from "../Pages/Dashboard/AllSellers/AllSellers";
 import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 import AddBook from "../Pages/Dashboard/MyBooks/AddBook";
 import MyOrders from "../Pages/Dashboard/MyOrders/MyOrders";
+import Dashboard from "../Pages/Dashboard/Welcome/Dashboard";
 import Books from "../Pages/Home/Books/Books";
 import Home from "../Pages/Home/Home/Home";
 import NotFound from "../Pages/NotFound/NotFound";
 import Login from "../Pages/User/Login/Login";
 import SignUp from "../Pages/User/SignUp/SignUp";
+import AdminRoute from "./AdminRoute";
+import BuyerRoute from "./BuyerRoute";
 import PrivateRoute from "./PrivateRoute";
+import SellerRoute from "./SellerRoute";
 
 export const routes = createBrowserRouter([
     {
@@ -40,19 +44,23 @@ export const routes = createBrowserRouter([
         children: [
             {
                 path: '/dashboard',
-                element: <AllSellers></AllSellers>
+                element: <Dashboard></Dashboard>
+            },
+            {
+                path: '/dashboard/allsellers',
+                element: <AdminRoute><AllSellers></AllSellers></AdminRoute>
             },
             {
                 path: '/dashboard/allusers',
-                element: <AllUsers></AllUsers>
+                element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
             },
             {
                 path: '/dashboard/myorders',
-                element: <MyOrders></MyOrders>
+                element: <BuyerRoute><MyOrders></MyOrders></BuyerRoute>
             },
             {
                 path: '/dashboard/addbook',
-                element: <AddBook></AddBook>
+                element: <SellerRoute><AddBook></AddBook></SellerRoute>
             }
         ]
     },
