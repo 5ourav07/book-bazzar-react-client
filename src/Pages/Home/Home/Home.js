@@ -11,6 +11,12 @@ const Home = () => {
                 <p className='text-2xl lg:text-3xl text-gray-400 font-bold pt-7'>Happy Reading</p>
             </div>
 
+            {/* Advertise */}
+            <div className="text-center text-white py-20">
+                <h1 className='text-2xl lg:text-4xl font-bold'>Advertise</h1>
+
+            </div>
+
             {/* Categories */}
             <div className="text-center text-white py-20">
                 <h1 className='text-2xl lg:text-4xl font-bold'>Categories</h1>

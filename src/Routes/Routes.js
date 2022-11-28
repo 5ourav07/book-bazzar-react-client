@@ -8,10 +8,12 @@ import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 import AddBook from "../Pages/Dashboard/MyBooks/AddBook";
 import MyBooks from "../Pages/Dashboard/MyBooks/MyBooks";
 import MyOrders from "../Pages/Dashboard/MyOrders/MyOrders";
+import Payment from "../Pages/Dashboard/MyOrders/Payment";
 import Dashboard from "../Pages/Dashboard/Welcome/Dashboard";
 import Books from "../Pages/Home/Books/Books";
 import Home from "../Pages/Home/Home/Home";
 import NotFound from "../Pages/NotFound/NotFound";
+import DisplayError from "../Pages/Shared/DisplayError/DisplayError";
 import Login from "../Pages/User/Login/Login";
 import SignUp from "../Pages/User/SignUp/SignUp";
 import AdminRoute from "./AdminRoute";
@@ -23,6 +25,7 @@ export const routes = createBrowserRouter([
     {
         path: '/',
         element: <MainLayout></MainLayout>,
+        errorElement: <DisplayError></DisplayError>,
         children: [
             {
                 path: '/',
@@ -42,6 +45,7 @@ export const routes = createBrowserRouter([
     {
         path: '/dashboard',
         element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
+        errorElement: <DisplayError></DisplayError>,
         children: [
             {
                 path: '/dashboard',
@@ -60,6 +64,11 @@ export const routes = createBrowserRouter([
                 element: <BuyerRoute><MyOrders></MyOrders></BuyerRoute>
             },
             {
+                path: '/dashboard/myorders/payment/:id',
+                element: <BuyerRoute><Payment></Payment></BuyerRoute>,
+                loader: ({ params }) => fetch(`http://localhost:5000/orders/${params.id}`)
+            },
+            {
                 path: '/dashboard/addbook',
                 element: <SellerRoute><AddBook></AddBook></SellerRoute>
             },
@@ -73,6 +82,7 @@ export const routes = createBrowserRouter([
     {
         path: '/',
         element: <UserLayout></UserLayout>,
+        errorElement: <DisplayError></DisplayError>,
         children: [
             {
                 path: '/login',

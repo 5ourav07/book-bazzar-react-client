@@ -17,6 +17,7 @@ const BooksCard = ({ book, setBookDetails }) => {
                     <p>Pickup Location: {location}</p>
                     <div className="card-actions justify-end">
                         <label onClick={() => setBookDetails(book)} htmlFor="order-modal" className="btn btn-primary">Order Now</label>
+                        <button className="btn btn-xs">Report</button>
                     </div>
                 </div>
             </div>

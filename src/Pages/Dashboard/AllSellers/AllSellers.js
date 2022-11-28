@@ -1,8 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import toast from 'react-hot-toast';
 
 const AllSellers = () => {
-    const { data: users = [] } = useQuery({
+    const { data: users = [], refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
             const res = await fetch('http://localhost:5000/seller-users');
@@ -10,6 +11,22 @@ const AllSellers = () => {
             return data;
         }
     });
+
+    const handleMakeAdmin = id => {
+        fetch(`http://localhost:5000/users/seller/${id}`, {
+            method: 'PUT',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount > 0) {
+                    toast.success('Seller Verified successful.')
+                    refetch();
+                }
+            })
+    }
 
     return (
         <div>
@@ -34,7 +51,20 @@ const AllSellers = () => {
                                     <td>{user.name}</td>
                                     <td>{user.email}</td>
                                     <td>{user.role}</td>
-                                    <td><button className='btn btn-xs bg-red-600'>Delete</button></td>
+                                    <td>
+                                        {
+                                            user?.status !== 'verified'
+                                                ?
+                                                <>
+                                                    <button onClick={() => handleMakeAdmin(user._id)} className='btn btn-xs bg-blue-400 mr-3'>Verify</button>
+                                                </>
+                                                :
+                                                <>
+                                                    <button disabled onClick={() => handleMakeAdmin(user._id)} className='btn btn-xs bg-blue-400 mr-3'>Verified</button>
+                                                </>
+                                        }
+                                        <button className='btn btn-xs bg-red-600'>Delete</button>
+                                    </td>
                                 </tr>)
                             }
                         </tbody>

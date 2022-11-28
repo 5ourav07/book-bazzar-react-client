@@ -18,8 +18,6 @@ const AddBook = () => {
         const condition = form.condition.value;
         const sellerName = form.sellerName.value;
 
-        console.log(category, image, title, location, resalePrice, originalPrice, used, condition, sellerName)
-
         const addBook = {
             category_id: category,
             image,
@@ -42,7 +40,7 @@ const AddBook = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.acknowledged) {
-                    toast.success('Booking confirmed');
+                    toast.success('Created confirmed');
                 }
                 else {
                     toast.error(data.message);

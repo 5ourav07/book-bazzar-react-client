@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../Contexts/AuthProvider';
 
 const MyOrders = () => {
@@ -31,10 +32,10 @@ const MyOrders = () => {
                             <tr>
                                 <th></th>
                                 <th>Title</th>
-                                <th>Price</th>
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Location</th>
+                                <th>Price</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -43,10 +44,21 @@ const MyOrders = () => {
                                     <tr className='hover' key={order._id}>
                                         <th>{i + 1}</th>
                                         <td>{order.bookTitle}</td>
-                                        <td>{order.bookPrice}</td>
                                         <td>{order.name}</td>
                                         <td>{order.email}</td>
                                         <td>{order.location}</td>
+                                        <td>
+                                            {
+                                                order.bookPrice && !order.paid &&
+                                                <Link to={`/dashboard/myorders/payment/${order._id}`}>
+                                                    <button className='btn btn-primary btn-sm'>Pay</button>
+                                                </Link>
+                                            }
+                                            {
+                                                order.bookPrice && order.paid && <span className='text-green-500'>Paid</span>
+                                            }
+                                        </td>
+
                                     </tr>
                                 )
                             }
