@@ -1,8 +1,6 @@
-Book Bazzar
-## Link: [Book Bazzar](https://book-bazzar-app.web.app/)
+## Live Link: [Book Bazzar](https://book-bazzar-app.web.app/)
 
-Book Bazzar Server
-## Link: [Book Bazzar](https://github.com/5ourav07/book-bazzar-react-server)
+## Book Bazzar Server Link: [Book Bazzar](https://github.com/5ourav07/book-bazzar-react-server)
 
 adminEmail: admin@admin.com
 adminPassword: 123456
